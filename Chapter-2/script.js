@@ -18,10 +18,11 @@
 
 // 2) use google gemini api ->
 
-
+import dotenv from "dotenv";
+dotenv.config();
 // import { GoogleGenAI } from "@google/genai";
 
-// const ai = new GoogleGenAI({apiKey:"AIzaSyCUDLyCyyiExmEHHiYBJV0vzl1fNcBQ33U"}); // api key setup
+// const ai = new GoogleGenAI({apiKey:process.env.API_KEY}); // api key setup
 
 // async function main() {
 //   const response = await ai.models.generateContent({
@@ -42,7 +43,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({apiKey:"AIzaSyCUDLyCyyiExmEHHiYBJV0vzl1fNcBQ33U"}); // api key setup
+const ai = new GoogleGenAI({apiKey:process.env.API_KEY}); // api key setup
 
 async function main() {
   const response = await ai.models.generateContent({
