@@ -13,8 +13,10 @@
 // -> recommeneded -> ki small model use karo -> isme less tokens use hongai -> kyuki isme thinking less hogi whereas in big model token jyada lagega kyuki kyuki model big hai
 // -> or abhi bhi issue ni solve hua -> **** so paid pe convert karlo by give account details in ai studio -> so isme hmko free 300 dollar ke free token milengai so ayse bhi use kar shakte hai  
 
+// -> ************** systemInstruction -> pe apan model ko batate hai kaise behave karna hai 
 
-// ----------------------------------------------------------------
+
+// --------------------------------------------------------------------
 
 
 // 2) ----> // **** -> system config(context) attach karna (abhi toh fix info bhej ray hai apan) -> ki llm ko pata ho info user ki thoda bohot ki is user ka naam ye hai and all info related to user (so llm give better output because about user) ----> ye is liye kare kyuki llm hmko correct answer de usko hamara bare mai thoda bohot pata ho isi liye add kare extra info -> (**** token thoda sa jyada lagega per output correct milega) -> **** and ye config har chat-req ke sath jayegi ki hmko llm correct output de -> because req llm ke liye new hoti hai purani chats wo ni dekh pata hai na so pass config 
@@ -53,32 +55,119 @@
 // so -> **** systemInstruction **** -> ka role aya -> batao ki ye zomato ka hai food related answers do bs or extra answers ni do strict rule to follow not answer extra thing only food related answer do -> is type se define karo systemInstruction pe 
 // -> **** define rules ki ye particular topic based answers de
 
+
+
+// import dotenv from "dotenv";
+// dotenv.config();
+
+// import { GoogleGenAI } from "@google/genai";
+
+// const ai = new GoogleGenAI({apiKey:process.env.API_KEY}); // api key setup
+
+// async function main() {
+//   const response = await ai.models.generateContent({
+//     model: "gemini-2.5-flash", // model 
+   
+//     config:{   // sabse pehle ye read hoga (systemInstruction) then user ka question dekhega and answer dega
+//        systemInstruction:`You are coding tutor, // -> define rules ki ye particular topic based answers de
+//                          Strict rules to follow
+//                          - you will only answer the question which is related to coding
+//                          - dont answer anything which is not related to coding
+//                          - reply rudely to user if they ask question which is not related to coding
+//                          ex -> you dumb , only ask questions related to coding`
+//     },                    
+   
+//     contents: "what is linkedlist ?", // question
+//   });
+//   console.log(response.text);
+// }
+
+// await main();
+
+
+// --------------------------------------------------------
+
+
+// 4) -> HISTORY MAINTAIN AUTOMATICALLY -> (use model -> multi turn conversation)
+
+
+// import dotenv from "dotenv";
+// dotenv.config();
+// import readlineSync from "readline-sync";
+// import { GoogleGenAI } from "@google/genai";
+
+// const ai = new GoogleGenAI({apiKey:process.env.API_KEY});
+
+// async function main() {
+//   const chat = ai.chats.create({
+//     model: "gemini-2.5-flash",
+//     history: [],
+//     config:{   // sabse pehle ye read hoga (systemInstruction) then user ka question dekhega and answer dega
+//      systemInstruction: `You are coding tutor, // -> define rules ki ye particular topic based answers de
+//                           Strict rules to follow
+//                           - you will only answer the question which is related to coding
+//                           - dont answer anything which is not related to coding
+//                           - reply rudely to user if they ask question which is not related to coding
+//                           ex -> you dumb , only ask questions related to coding`
+//      },
+//   });
+
+//   const response1 = await chat.sendMessage({
+//     message: "what is stack ?",
+//   });
+//   console.log("Chat response 1:", response1.text);
+
+// }
+
+// await main();
+
+
+// ------------------------------------------------------
+
+//    ----> history maintained automatically 
+// 5) ----> TERMINAL SE INPUT READ KARE & OUTPUT DO -> so install -> npm i readline-sync
+
+
 import dotenv from "dotenv";
 dotenv.config();
-
+import readlineSync from "readline-sync";
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({apiKey:process.env.API_KEY}); // api key setup
+const ai = new GoogleGenAI({apiKey:process.env.API_KEY});
 
 async function main() {
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash", // model 
-   
+  const chat = ai.chats.create({
+    model: "gemini-2.5-flash",
+    history: [],
     config:{   // sabse pehle ye read hoga (systemInstruction) then user ka question dekhega and answer dega
-       systemInstruction:`You are coding tutor, // -> define rules ki ye particular topic based answers de
-                         Strict rules to follow
-                         - you will only answer the question which is related to coding
-                         - dont answer anything which is not related to coding
-                         - reply rudely to user if they ask question which is not related to coding
-                         ex -> you dumb , only ask questions related to coding`
-    },                    
-   
-    contents: "what is linkedlist ?", // question
+               // -> define rules ki ye particular topic based answers de
+        systemInstruction: `You are coding tutor,         
+                          Strict rules to follow
+                          - you will only answer the question which is related to coding
+                          - dont answer anything which is not related to coding
+                          - reply rudely to user if they ask question which is not related to coding
+                          ex -> you dumb , only ask questions related to coding`
+     },
   });
-  console.log(response.text);
+
+     while(true){ // questions read from terminal 
+        const question = readlineSync.question("Ask me Questions :");
+        
+        if(question=="exit"){
+           break;
+        }
+        
+        const response = await chat.sendMessage({
+           message:question
+        })
+
+        console.log("Response :" , response.text);
+
+     }      
+
 }
 
 await main();
 
-
-
+// -> **** how to prove history store hori hai ?
+// -> By ask question llm se ki what is my name -> llm tells our name -> means history store hoti hai 
