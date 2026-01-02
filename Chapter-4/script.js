@@ -1,4 +1,5 @@
-// 1) AI Agent
+// 1) AI Agent ( -> Ai Agent = LLM + Functions/Tools)
+
 
 // automation pe chala jaye -> ex : video upload karna hai yt pe so mai sirf cmd diya wo apne se access kare video and upload karde
 
