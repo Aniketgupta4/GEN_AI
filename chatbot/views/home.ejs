@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot App - Home</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #0f0f1a);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #111827;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #22c55e;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .navbar a:hover {
+            color: #22c55e;
+            transform: translateY(-2px);
+        }
+        .navbar a.logout {
+            background: #2563eb;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #22c55e;
+        }
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #cbd5e1;
+        }
+        .hero .cta-btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: none;
+            background: #2563eb;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(37,99,235,0.3);
+        }
+        .hero .cta-btn:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            padding: 20px 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">CodeBot</div>
+        <div class="nav-links">
+            <a href="/signup" class="logout">Signup</a>
+            <a href="/login" class="logout">Login</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to Our CodeBot!</h1>
+        <p>Ask your coding questions and get instant AI-powered answers.</p>
+        <button class="cta-btn" onclick="location.href='/demo'">Start Chatting</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 ChatBot App. All rights reserved.
+    </footer>
+
+</body>
+</html>

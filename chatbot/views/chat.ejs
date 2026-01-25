@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+    <style>
+        /* Reset and base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e2f, #0f0f1a);
+            color: #fff;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #111827, #1c1f3a);
+            display: flex;
+            flex-direction: column;
+            padding: 25px 20px;
+            border-right: 2px solid #66738f;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        }
+
+        .sidebar button {
+            padding: 14px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #22c55e;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .sidebar a {
+            margin-top: auto;
+            text-decoration: none;
+            color: #fff;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 10px;
+            background: #dc2626;
+            font-weight: bold;
+        }
+
+        /* Chat area */
+        .chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+        }
+
+        /* TOP NAVBAR (NEW) */
+        .chat-navbar {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #111827, #1c1f3a);
+            border-bottom: 1px solid #334155;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .chat-navbar h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #22c55e;
+        }
+
+        /* Messages container */
+        .messages {
+            flex: 1;
+            padding: 25px 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .msg {
+            max-width: 70%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            font-size: 15px;
+            line-height: 1.5;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+        }
+
+        .user {
+            align-self: flex-end;
+            background: #2563eb;
+            border-bottom-right-radius: 0;
+        }
+
+        .bot {
+            align-self: flex-start;
+            background: #475569;
+            border-bottom-left-radius: 0;
+        }
+
+        /* Input area */
+        .input-area {
+            display: flex;
+            padding: 20px 25px;
+            background: #020617;
+            border-top: 1px solid #334155;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: 22px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            background: #1f2937;
+            color: #fff;
+        }
+
+        .input-area button {
+            margin-left: 15px;
+            padding: 14px 26px;
+            border-radius: 22px;
+            border: none;
+            background: #22c55e;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Scrollbar */
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background-color: #2563eb;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar">
+        <button onclick="newChat()">+ New Chat</button>
+        <a href="/">Logout</a>
+    </div>
+
+    <!-- CHAT -->
+    <div class="chat">
+
+        <!-- NEW NAVBAR -->
+        <div class="chat-navbar">
+            <h1>CodeBot</h1>
+        </div>
+
+        <div id="messages" class="messages"></div>
+
+        <div class="input-area">
+            <input id="msg" placeholder="Ask coding question..."
+                   onkeydown="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="/js/chat.js"></script>
+</body>
+</html>
