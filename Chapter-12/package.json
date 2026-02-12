@@ -1,0 +1,24 @@
+{
+  "name": "chapter-12",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Basics.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@langchain/community": "^1.1.15",
+    "@langchain/core": "^1.1.24",
+    "@langchain/google-genai": "^2.1.18",
+    "@langchain/pinecone": "^1.0.1",
+    "@langchain/textsplitters": "^1.0.1",
+    "@pinecone-database/pinecone": "^7.0.0",
+    "dotenv": "^17.3.0",
+    "pdf-parse": "^2.4.5",
+    "readline-sync": "^1.4.10"
+  }
+}
