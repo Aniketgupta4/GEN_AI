@@ -38,10 +38,10 @@ async function indexing() {
     // configure kar diya hai embedding model ko -> gemini ka model
     const embeddings = new GoogleGenerativeAIEmbeddings({
         apiKey: process.env.GEMINI_API_KEY,
-        model: 'text-embedding-004', // 768 dimension
+        model: 'gemini-embedding-001', // 3072 dimension --> model and dimension change hote rehte hai
     });
 
-   
+
 
     // s4) configure pinecone 
 
