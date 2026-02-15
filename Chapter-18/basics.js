@@ -13,7 +13,6 @@
 
 
 
-
 // -------- PROJECT [CODE PE PARESHAN NI HO --> CHANGES HOTE REHTE HAI] --------
 
 // 1) RUNINDEXING.JS 
@@ -21,5 +20,8 @@
 
 
 
+// ----> run project :
 
+// --> npm run test --> all things are connected or not
+// --> npm run index
 
