@@ -2,181 +2,348 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CodeBot Pro | AI Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
-        /* Reset and base */
+        :root {
+            --primary: #22c55e;
+            --bg-dark: #020617;
+            --sidebar-bg: rgba(15, 23, 42, 0.95);
+            --border: rgba(255, 255, 255, 0.1);
+            --sidebar-width: 280px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Fixed height for mobile browsers to prevent clipping */
+        html, body {
+            height: 100%;
+            height: -webkit-fill-available;
+            overflow: hidden;
+            background: var(--bg-dark);
         }
 
         body {
-            display: flex;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
-            background: linear-gradient(135deg, #1e1e2f, #0f0f1a);
+            background-image: radial-gradient(circle at top right, rgba(34, 197, 94, 0.05), transparent);
             color: #fff;
+            display: flex;
         }
 
-        /* Sidebar */
+        /* --- SIDEBAR DRAWER --- */
         .sidebar {
-            width: 260px;
-            background: linear-gradient(180deg, #111827, #1c1f3a);
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
-            padding: 25px 20px;
-            border-right: 2px solid #66738f;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            padding: 30px 20px;
+            border-right: 1px solid var(--border);
+            position: fixed;
+            height: 100%;
+            left: calc(-1 * var(--sidebar-width));
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0;
+            box-shadow: 25px 0 50px rgba(0,0,0,0.6);
+        }
+
+        .sidebar h2 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .sidebar button {
             padding: 14px;
-            margin-bottom: 15px;
-            border: none;
+            border: 1px solid var(--primary);
             border-radius: 12px;
-            background: #22c55e;
-            color: #fff;
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--primary);
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 15px;
-            transition: all 0.3s;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .sidebar button:hover {
+            background: var(--primary);
+            color: #000;
+            transform: translateY(-2px);
         }
 
         .sidebar a {
             margin-top: auto;
             text-decoration: none;
-            color: #fff;
+            color: #ff4d4d;
             text-align: center;
-            padding: 12px 0;
+            padding: 12px;
             border-radius: 10px;
-            background: #dc2626;
+            background: rgba(255, 77, 77, 0.1);
             font-weight: bold;
+            transition: 0.3s;
         }
 
-        /* Chat area */
-        .chat {
+        .sidebar a:hover { background: #ff4d4d; color: #fff; }
+
+        /* --- OVERLAY --- */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+        }
+
+        /* --- MAIN CHAT AREA --- */
+        .chat-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
 
-        /* TOP NAVBAR (NEW) */
         .chat-navbar {
-            height: 60px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            background: rgba(2, 6, 23, 0.8);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        .menu-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(180deg, #111827, #1c1f3a);
-            border-bottom: 1px solid #334155;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
+
+        .menu-btn:hover { background: var(--primary); color: #000; }
 
         .chat-navbar h1 {
-            font-size: 22px;
+            font-size: 18px;
+            color: var(--primary);
             font-weight: 700;
-            letter-spacing: 1px;
-            color: #22c55e;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Messages container */
+        /* --- MESSAGES --- */
         .messages {
             flex: 1;
-            padding: 25px 30px;
+            padding: 20px 15%;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
         .msg {
-            max-width: 70%;
-            padding: 14px 18px;
-            border-radius: 16px;
-            font-size: 15px;
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
             line-height: 1.5;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+            animation: slideIn 0.4s ease forwards;
+            word-wrap: break-word;
         }
 
-        .user {
-            align-self: flex-end;
-            background: #2563eb;
-            border-bottom-right-radius: 0;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .bot {
-            align-self: flex-start;
-            background: #475569;
-            border-bottom-left-radius: 0;
-        }
+        .user { align-self: flex-end; background: #2563eb; border-bottom-right-radius: 2px; }
+        .bot { align-self: flex-start; background: #1e293b; border: 1px solid var(--border); border-bottom-left-radius: 2px; }
 
-        /* Input area */
+        /* --- INPUT AREA --- */
         .input-area {
-            display: flex;
-            padding: 20px 25px;
-            background: #020617;
-            border-top: 1px solid #334155;
+            padding: 15px 15%;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
         }
 
-        .input-area input {
+        .input-box {
+            display: flex;
+            background: #1e293b;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-box input {
             flex: 1;
-            padding: 14px 18px;
-            border-radius: 22px;
+            background: transparent;
             border: none;
             outline: none;
-            font-size: 15px;
-            background: #1f2937;
             color: #fff;
+            font-size: 16px; /* Prevents auto-zoom on iOS */
+            padding: 8px 0;
         }
 
-        .input-area button {
-            margin-left: 15px;
-            padding: 14px 26px;
-            border-radius: 22px;
+        .input-box button {
+            background: var(--primary);
             border: none;
-            background: #22c55e;
-            color: #000;
-            font-weight: bold;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
             cursor: pointer;
+            color: #000;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
         }
 
-        /* Scrollbar */
-        .messages::-webkit-scrollbar {
-            width: 8px;
+        /* --- TOAST --- */
+        .toast {
+            position: fixed;
+            top: 25px;
+            right: -300px;
+            background: var(--primary);
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .messages::-webkit-scrollbar-thumb {
-            background-color: #2563eb;
-            border-radius: 4px;
+        .toast.show { right: 20px; }
+
+        /* --- MOBILE RESPONSIVE QUERIES --- */
+        @media (max-width: 1024px) {
+            .messages, .input-area { padding-left: 5%; padding-right: 5%; }
+        }
+
+        @media (max-width: 768px) {
+            .messages, .input-area { padding-left: 15px; padding-right: 15px; }
+            .msg { max-width: 90%; }
+            .sidebar { width: 80%; max-width: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- LEFT SIDEBAR -->
-    <div class="sidebar">
-        <button onclick="newChat()">+ New Chat</button>
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="toast" id="toast">
+        <i data-lucide="sparkles"></i> New Chat Started!
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <h2><i data-lucide="bot"></i> CodeBot</h2>
+        <button onclick="handleNewChat()">
+            <i data-lucide="plus"></i> New Chat
+        </button>
         <a href="/">Logout</a>
     </div>
 
-    <!-- CHAT -->
-    <div class="chat">
+    <div class="chat-container">
+        <nav class="chat-navbar">
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <i data-lucide="menu"></i>
+            </button>
+            <h1>ChatBot Dashboard</h1>
+        </nav>
 
-        <!-- NEW NAVBAR -->
-        <div class="chat-navbar">
-            <h1>CodeBot</h1>
+        <div id="messages" class="messages">
+            <div class="msg bot">Hello! I'm your professional coding assistant. How can I help?</div>
         </div>
 
-        <div id="messages" class="messages"></div>
-
         <div class="input-area">
-            <input id="msg" placeholder="Ask coding question..."
-                   onkeydown="if(event.key==='Enter') sendMessage()">
-            <button onclick="sendMessage()">Send</button>
+            <div class="input-box">
+                <input id="msg" placeholder="Type your coding question..."
+                       onkeydown="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()">
+                    <i data-lucide="send-horizonal"></i>
+                </button>
+            </div>
         </div>
     </div>
 
+    <script>
+        lucide.createIcons();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
+        }
+
+        function handleNewChat() {
+            if(typeof newChat === 'function') {
+                newChat(); 
+            } else {
+                document.getElementById('messages').innerHTML = '<div class="msg bot">New session started.</div>';
+            }
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+            toggleSidebar();
+        }
+
+        // Maintaining your original sendMessage logic
+        const originalSendMessage = window.sendMessage; 
+        window.sendMessage = function() {
+            const input = document.getElementById('msg');
+            const container = document.getElementById('messages');
+            
+            if (input.value.trim() !== "") {
+                const userMsg = document.createElement('div');
+                userMsg.className = 'msg user';
+                userMsg.textContent = input.value;
+                container.appendChild(userMsg);
+                container.scrollTop = container.scrollHeight;
+                
+                if(typeof originalSendMessage === 'function') originalSendMessage();
+                
+                input.value = "";
+            }
+        };
+    </script>
     <script src="/js/chat.js"></script>
 </body>
 </html>

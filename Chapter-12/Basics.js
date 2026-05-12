@@ -185,3 +185,5 @@
 // -> INSTALL MORE THINGS FROM PDF -> npm i @langchain/pinecone @pinecone-database/pinecone @langchain/community @langchain/google-genai @langchain/textsplitters dotenv pdf-parse readline-sync
 
 
+// --> ******** IN PINECONE --> VECTOR+DATA+METADATA STORE HOTA HAI --> WHEN WE UPLOAD PDF IN VECTORDB THIK --> SO IF PDF DELETED AND MODEL BHI DEPRICATED HOGYA SO --> WE GET DATA FROM PINECONE INDEX -> BECAUSE PINECONE KE INDEX PE VECOR/DATA/METADATA STORE HOTA HAI
+

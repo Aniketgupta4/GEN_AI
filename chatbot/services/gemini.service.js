@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config(); // 👈 GUARANTEE env loaded
+dotenv.config(); 
 
 import { GoogleGenAI } from "@google/genai";
 
