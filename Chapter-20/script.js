@@ -197,3 +197,61 @@
 // -----------> **** SO LANGGRAPH ME APAN KO YE SAB FUNCTIONS NODES KE FORM ME BANANE HONGAI AND UN NODES KO EDGES SE CONNECT KARNA HOGA TOH APAN KO YE S1 TO S5 KO LANGGRAPH ME NODE BANAYENGE AND UN NODES KO EDGES SE CONNECT KAR DENGE TOH APAN S1 TO S5 KO EK SATH CHALA SAKTE HAI WITHOUT COMMENTING AND UNCOMMENTING CODE FOR EACH STEP AND APAN STATE OF THE NODE USE KARKE YE CHECK KAR SAKTE HAI KI KYA YE STEP DONE HOGYA HAI YA NI HOGYA HAI TOH AGAR YE STEP DONE HOGYA HAI TOH WO STEP SKIP HO JAYEGA AND NEXT STEP PE CHALA JAYEGA WITHOUT COMMENTING AND UNCOMMENTING CODE FOR EACH STEP
 
 
+
+// ------------------------------------------------------------------------------------------------------------------
+
+
+
+
+// LANGGRAPH PART2 
+
+// -> there are so many frameworks like langgraph so apan baki ko bhi dekh shakta hai
+// -> but langgraph is the best one for learning and understanding the concept of graph database
+
+// -> state ke ander hum log pura data store karte hai and read write kar shakte hai its like a centralized place [db] where hum log apna data store karte hai and read write kar shakte hai
+
+
+// --> -------- CHECKPOINTS --------
+
+// -> checkpoints are like milestones in our learning journey, they help us to track our progress and understand how much we have learned so far.
+
+// -> checkpoints are like snapshot -> example -> pdf load kare state create hui -> but new state pe textcontent ko wo karengai -> then next step pe chunking karna hoga so -> again new state create hogi and new state pe chunks create karega purani pe kuch ni karega -> is type se hi new new state create honngi for particular step and we can track our progress and understand how much we have learned so far.
+
+// **** these are checkpoints -> jaise work/process ho jayega koi si waise hi ek new state create hogi and we can track our progress and understand how much we have learned so far.
+
+                                              // langgraph 
+// S1) -> LOAD PDF                         // -> state:{                                     // -> state:{                                // -> state:{      
+// S2) -> CHUNKING                         //     pdf:"./hello.pdf",                         //     pdf:"./hello.pdf",                    //     pdf:"./hello.pdf", 
+// S3) -> BATCHING                         //     textContent:null,                          //     textContent:null,                     //     textContent:null,          
+//        ||  ||            ---->          //     chunks:null,                                //     chunks:null,                          //     chunks:null, 
+// S4) -> || EMBEDDING                     //     batches:10k,                                //     batches:10k,                          //     batches:10k, 
+// S5) -> STORE IN VECTOR DB               //     chunkEmbeddings:null,                       //     chunkEmbeddings:null,                  //     chunkEmbeddings:null, 
+// S6) -> END                              //     vectorEmbeddings:null                       //     vectorEmbeddings:null                 //     vectorEmbeddings:null                                                                                            
+                                           // }                                                // }                                         // }
+                                            //       CHECKPOINT1                                       CHECKPOINT2                                CHECKPOINT3
+
+// -> state:{                                                         
+//     pdf:"./hello.pdf",                                 
+//     textContent:null,                                  
+//     chunks:null,                         
+//     batches:10k,                                         
+//     chunkEmbeddings:null,                                
+//     vectorEmbeddings:null                           
+// }
+//     CHECKPOINT5
+
+// --> suppose kahi pass code fat gaya so apko samajh ni aa rha ki kaha se start karna hai to ap checkpoints pe jao and dekho ki kaha tak kaam complete ho chuka hai and kaha se start karna hai and uske according code likhna start kar do and jab bhi koi step complete ho jaye to checkpoint pe jao and update kar do ki ye step complete ho gaya hai and next step pe kaam start kar do and is type se apko pata chal jayega ki kaha tak kaam complete ho chuka hai and kaha se start karna hai and apka kaam bhi easy ho jayega.
+
+// --> why itne sare checkpoint create karna and data store karna same same ?
+// -> har step pe state create hori hai new new 
+
+// -> **** agar sirf 1 state bs bana diye bs toh new new bohot sari state ni banaye toh ?
+// -> **** let kahi pe error aya hai toh pata lagega ki uper bhi kahi pe galti hai
+// -> so uper wala bhi code change hoga and then ye niche wala change hoga 
+// -> **** so ab apan ko uper wali state chaiye uper ke error ko thik karne ke liye so --> **** AB HMKO WO NEW STATE KI REQUIREMENT AYI SAMJHE
+// -> **** AB HMKO WO NEW STATE KI REQUIREMENT AYI SAMJHE TOH AB APAN NEW STATE CREATE KARENGE FOR PARTICULAR STEP AND USME SARA DATA STORE KAR DENGE AND USKE BAAD US STEP KA KAAM COMPLETE KARNE KE BAAD US STATE KO UPDATE KAR DENGE WITH NEW DATA AND IS TYPE SE HAR STEP PE NEW STATE CREATE HOGI AND HAR STEP PE DATA UPDATE HOGA AND APKO PATA CHAL JAYEGA KI KAHAN PE KAAM COMPLETE HO CHUKA HAI AUR KAHAN PE START KARNA HAI AUR APKA KAAM BHI EASY HO JAYEGA.
+// -> **** SO YAHI REASON HAI MULTIPLE STATE/CHECKPOINTS CHAIYE APAN KO THIK HAI NA 
+
+// -> CHECKPOINTS MEANS -> HISTORY OF STATES -> JITNE BHI STATES BANAYE HAIN USKA HISTORY RAKHNE KA KAAM CHECKPOINTS KARTA HAI AND USSE APKO PATA CHAL JAYEGA KI KAHAN PE KAAM COMPLETE HO CHUKA HAI AUR KAHAN PE START KARNA HAI AUR APKA KAAM BHI EASY HO JAYEGA.
+
+
