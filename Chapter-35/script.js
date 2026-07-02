@@ -91,6 +91,7 @@
 // -> a stray wug followed me all the way to near market
 // -> the wug is barking loudly at the strangers 
 
+// **** kisi word ke alag bagal wale word meaning create kar dete hai
 // --> vector : 768 
 // --> so itna sara text hai thik hmko sirf vector embedding nikalna hai uske liye --> so wug ane ka probability 0.7 hai thik so apan ko vector kaha se milega 768 ? 
 // --> ******** last layer se pehle wale pe 768 neurons rakh do --> then 50k neurons hai at last --> so 768 wale wale ka o/p 50k pe i/p jara hai so yahi 768 wale vector hue hai contribute karray hai ki wug ka answer kya ayega  
@@ -98,4 +99,3 @@
 
 // --> **** what we will give input to model --> sentence toh ni de shakte and tokens meaningless hai toh ni de shakte -> kya de input pe batao ?
 // --> next class 
-
