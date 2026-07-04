@@ -74,11 +74,48 @@
 //            dance , dances , dancer , dancing
 //            .......
 
-// --> ******** jo bhi word internet pe frequent hai inme ye sab hai thik --> and kya ho mai sirf --> run ko bs token assign karu --> run = 4 , ing = 173 , sing:76 [jaise run ko token assign kare diye so running ko ni karengai token assign sirf -> ing ko bs karengai assign]
-// --> 
+// --> ******** jo bhi word internet pe frequent hai inme ye sab hai thik --> and kya ho mai sirf --> run ko bs token assign karu --> run = 4 , ing = 173 , sing:76 [jaise run ko token assign kare diye so running ko ni karengai token assign sirf -> ing ko bs karengai assign token and in future kuch bhi ata hai new word ing related so iske pehle ke bs bo token dena padega ing ko toh assign hai samjhe]
+// --> **** so mai variety of words ko -> 50k ke ander laa paoga 
+
+// --> how to build this solution batao -> existing word ko use karke new word bana shake ?
 
 
 
+// --> how to build tokenizer :-
+
+// -> given -> low, low, low, lower, .........
+// -> break into individaul character -> l o w  l o w  l o w  l o w i n g ........
+// -> and ab chalo 2-2 ke pair pe break karlo inko -> 
+//    lo 
+//    ow
+//    w_
+//    _l
+//    ow  
+// -> jinki freq jyada usko 1st token assign kar dengai [0-255]
+// -> and ab inko merge karke chalogai ki ye 1 token hai -> ex: lo [max freq wala]
+// -> repeat same process -> max freq wale ko token assign kardo --> and total 50k times runs karengai toh sabko token mil jayengai
+// -> means isme single word ko token assign hoga then double word ko triple word ko and all sabko token assign hongai
 
 
+// -> let token assign to :-   in = 238 [consider as single token]
+//                       then  ing = ?  --> wahi same process repeat hogi and in wale ing wale count hongai -> max freq wale ko select and assign token too
 
+
+// -> ex :- let new word is -> chatgpt -> assign token to it ?
+// -> existing tokens in library [inko tokens assign hai already] -> [chat , at , c , h , a , t, g , p , t , hat]
+// -> so tell kaise assign hongai token to --> chatgpt --> 
+
+// -> 1) **** single words dekho then double words then triple words then 4words so chat is big word and have token already -> and g , p , t -> single single hai and inko bhi assign hai token so g , p , t , chat ----> means it get 4 tokens total
+
+// or 
+
+// -> 2) **** ch ha at tg gp pt --> 2-2 ke pair pe dekho toh at is big and have token --> then triple pe dekho -> ch hat atg gp pt --> hat ke pass hai --> then ab 4pair of dekho -> chat hatg gp pt -> chat ke liye hai token -> ayse hi karo <--------------------- this is follow by openai 
+
+
+// ----------> 1) this strategy follow by google , gpt and all in real world <----------
+
+
+// -> **** make 1 more optimization too -> ki jaise ex: low low low low -> bohot baar hai --> lo ow w_ lo ow w_ -> aysa bar bar calculate ni karo computaion bacho -> lo aya hai and low 5 baar hai so lo*5 kardo direct baar baar lo ko wo ni karo samjhe
+
+
+// -> **** model ho har type ke data -> correct incorrect data sare data pe train karte hai --> tabhi wo sikhta hai 
